@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Beyond Proximity: quality childcare access in New York City. Harvard CGA 2026 lightning talk by Chaitanya Kukreja, NYU CUSP. Maps, method, data sources and contact.">
+<meta name="robots" content="noindex">
+<title>Beyond Proximity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column (~72ch) with full-width map figures; civic-report feel, map colors carry the accents */
+:root{
+  --bg:#FFFFFF; --surface:#F2F5F8; --ink:#1D2B3A; --muted:#566573; --line:#DCE3EA;
+  --accent:#D9481F; --blue:#2E75B6; --paper:#FFFFFF;
+  --f-display:"Literata", Cambria, Georgia, serif;
+  --f-body:"Public Sans", "Segoe UI", Arial, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121A23; --surface:#1B2632; --ink:#E6ECF2; --muted:#9AA9B8; --line:#2B3947;
+  --accent:#F07A55; --blue:#6AA8E0; --paper:#FFFFFF; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#121A23; --surface:#1B2632; --ink:#E6ECF2; --muted:#9AA9B8; --line:#2B3947;
+  --accent:#F07A55; --blue:#6AA8E0; --paper:#FFFFFF; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;padding-inline:20px;padding-block:0 64px}
+.wrap{max-width:880px;margin:0 auto}
+.read{max-width:68ch}
+header{padding-block:48px 28px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:8px;align-items:baseline}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(34px,6vw,52px);line-height:1.08;margin:14px 0 10px;text-wrap:balance}
+.sub{font-family:var(--f-display);font-weight:500;font-size:clamp(18px,2.6vw,22px);color:var(--muted);margin:0 0 20px;text-wrap:balance}
+.byline{font-size:15px;color:var(--muted)}
+.byline strong{color:var(--ink)}
+h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.2;margin:0 0 12px;text-wrap:balance}
+section{padding-block:40px 8px;display:flex;flex-direction:column;gap:14px}
+p{margin:0}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:28px}
+.stat{background:var(--surface);border-radius:6px;padding:16px 18px;min-width:0}
+.stat b{display:block;font-family:var(--f-display);font-size:32px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat > span{font-size:14px;color:var(--muted)}
+.c-acc{color:var(--accent)} .c-blue{color:var(--blue)}
+.kicker{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+figure{margin:8px 0 0;display:flex;flex-direction:column;gap:10px}
+.map{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:10px;max-width:100%}
+.map img{display:block;width:100%;height:auto}
+.map.tall img{max-height:760px;width:auto;margin:0 auto}
+figcaption{font-size:14.5px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;padding:0;margin:0}
+.legend li{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600}
+.sw{width:22px;height:22px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.15)}
+.legend small{font-weight:400;color:var(--muted);font-size:14px}
+.legend.col{flex-direction:column;gap:10px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-size:15px;min-width:420px;width:100%;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+td.num{text-align:right} th.num{text-align:right}
+ol.steps{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+a{color:var(--blue);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.box{background:var(--surface);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.copyrow{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.copytext{font-family:var(--f-mono);font-size:14px;flex:1 1 280px;min-width:0;user-select:all;word-break:break-word}
+button{font:600 14px var(--f-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--ink)}
+.note{font-size:14px;color:var(--muted)}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header>
+  <div class="eyebrow"><span class="dot"></span><span>Harvard CGA Conference 2026 · Lightning talk</span></div>
+  <h1>Beyond Proximity</h1>
+  <p class="sub">Measuring quality childcare access as a spatial equity problem in New York City</p>
+  <p class="byline"><strong>Chaitanya Kukreja</strong> · MSc Urban Data Science, NYU Center for Urban Science + Progress (CUSP)<br>Analysis completed May 2026 · data as of May 7, 2026</p>
+  <div class="glance">
+    <div class="stat"><b class="c-blue">97.8%</b><span>of populated census tracts are within a 5-minute walk of a quality program</span></div>
+    <div class="stat"><b><span class="c-acc">2.2</span> vs <span class="c-blue">10.7</span></b><span>quality programs per 1,000 children, average Bronx vs. Manhattan tract</span></div>
+    <div class="stat"><b class="c-acc">220</b><span>census tracts form clustered low-access “deserts” (LISA low–low)</span></div>
+  </div>
+</header>
+
+<section class="read">
+  <h2>Why this project</h2>
+  <p>At the NYC Open Data Week Questions Lab on March 27, 2026, convened by The GovLab, Brooklyn Public Library and the NYU Alliance for Public Interest Technology, one question kept coming up at the early childhood and education table: <em>where are the quality childcare programs?</em> On April 1, 2026, New York City launched a child care website and interactive map. In later informal conversations, parents said childcare has to be near home.</p>
+  <p>So this study asks: <strong>does every neighborhood have enough quality childcare, within walking distance of home, for the children who need it?</strong></p>
+  <p><strong>Programs studied:</strong> center-based childcare licensed by the NYC Department of Health and Mental Hygiene (DOHMH), for children from birth to age 5: 2,289 Group Child Care centers and 440 School-Based Child Care programs (2,729 with a location). By age group, 571 are infant–toddler programs and 2,158 are preschool programs. Home-based family child care is not included.</p>
+</section>
+
+<section>
+  <div class="read" style="display:flex;flex-direction:column;gap:12px">
+    <div class="kicker">Finding 1</div>
+    <h2>Nearby is not the problem</h2>
+    <p>Measured as walking time on the real street network at 3 mph, 97.8% of populated tracts are within 5 minutes of at least one quality program, and 99.8% within 10 minutes.</p>
+  </div>
+  <figure>
+    <div class="map"><img src="maps/walk-5-10.jpg" alt="Two maps of New York City census tracts, 5-minute and 10-minute walks. Nearly all tracts are green (has access); a few red tracts lack access at 5 minutes." width="1600" height="900" loading="lazy"></div>
+    <ul class="legend">
+      <li><span class="sw" style="background:#27AE61"></span>Has access</li>
+      <li><span class="sw" style="background:#C0392B"></span>No access</li>
+      <li><span class="sw" style="background:#111111"></span>Quality program</li>
+      <li><span class="sw" style="background:#F0F0F0"></span>Unpopulated</li>
+    </ul>
+  </figure>
+</section>
+
+<section>
+  <div class="read" style="display:flex;flex-direction:column;gap:12px">
+    <div class="kicker">Finding 2</div>
+    <h2>Quality per child is the problem</h2>
+    <p>Having one program nearby does not mean there is a place for every child. Per child, the Bronx has far less quality care than Manhattan.</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Measure</th><th class="num">Bronx</th><th class="num">Manhattan</th></tr></thead>
+      <tbody>
+        <tr><td>Quality programs per 1,000 children (average tract)</td><td class="num c-acc">2.2</td><td class="num c-blue">10.7</td></tr>
+        <tr><td>Poverty rate (average tract)</td><td class="num">26.4%</td><td class="num">15.9%</td></tr>
+        <tr><td>Quality rate among inspected programs</td><td class="num">71.1%</td><td class="num">89.1%</td></tr>
+        <tr><td>Tracts with zero quality programs</td><td class="num">68.7%</td><td class="num">37.4%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <div class="map tall"><img src="maps/kde-gap.jpg" alt="Kernel density gap map of New York City. The Bronx is dark red, meaning need exceeds quality supply; Manhattan is dark blue." width="1600" height="1756" loading="lazy"></div>
+    <ul class="legend">
+      <li><span class="sw" style="background:#B2182B"></span>Need exceeds quality supply</li>
+      <li><span class="sw" style="background:#2166AC"></span>Quality supply exceeds need</li>
+    </ul>
+    <figcaption>Gap = demand density (children under 5 weighted by poverty rate) minus supply density (quality programs). Kernel bandwidth 8,000 ft.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="read" style="display:flex;flex-direction:column;gap:12px">
+    <div class="kicker">Finding 3</div>
+    <h2>The gaps cluster, in two different ways</h2>
+    <p>Low access is not randomly scattered. Global Moran’s I is small but significant (≈ 0.023, p &lt; 0.05) and holds across four definitions of “neighbor.” Local analysis (LISA) separates two kinds of desert that need different responses.</p>
+  </div>
+  <figure>
+    <div class="map tall"><img src="maps/lisa.jpg" alt="LISA cluster map of New York City census tracts showing low-low clusters in blue, low-high outliers in orange, high-high clusters in red and high-low outliers in purple." width="1600" height="1838" loading="lazy"></div>
+    <ul class="legend col">
+      <li><span class="sw" style="background:#2E75B6"></span><span>Low–Low · 220 tracts <small>Structural deserts: low access surrounded by low access</small></span></li>
+      <li><span class="sw" style="background:#F39C11"></span><span>Low–High · 156 tracts <small>Islands of low access inside well-served areas</small></span></li>
+      <li><span class="sw" style="background:#C2382B"></span><span>High–High · 92 tracts <small>Well-served clusters</small></span></li>
+      <li><span class="sw" style="background:#8E44AD"></span><span>High–Low · 57 tracts <small>Well-served tracts inside deserts</small></span></li>
+      <li><span class="sw" style="background:#E6E6E6"></span><span>Not significant</span></li>
+    </ul>
+    <figcaption>Queen contiguity weights, 999 permutations, p &lt; 0.05. Because LISA uses random permutations, counts can shift by one or two tracts between runs.</figcaption>
+  </figure>
+</section>
+
+<section class="read">
+  <h2>Method</h2>
+  <ol class="steps">
+    <li><strong>Score quality.</strong> Each program’s most recent NYC Health Department inspection (2021–23): passed, violations corrected, or no reinspection required = quality. Programs with no inspection in the window are “unknown,” not failing.</li>
+    <li><strong>Join to census tracts.</strong> Programs and demographics share no ID, so a spatial join links them.</li>
+    <li><strong>Walk access.</strong> Multi-source shortest paths on the OpenStreetMap walking network from all quality programs, measured to each tract’s center.</li>
+    <li><strong>Supply vs. demand.</strong> Kernel density surfaces for quality programs and for poverty-weighted children, then the difference.</li>
+    <li><strong>Clustering.</strong> Global Moran’s I, then LISA and Getis-Ord Gi* for local patterns.</li>
+  </ol>
+  <p class="note">Framework adapted from Rozhkov, Zandiatashbar &amp; Seyrfar (2025), who mapped transit deserts in Chicago.</p>
+</section>
+
+<section class="read">
+  <h2>Robustness</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Check</th><th class="num">I</th><th class="num">p</th></tr></thead>
+      <tbody>
+        <tr><td>Moran’s I, queen contiguity (main)</td><td class="num">0.023</td><td class="num">0.035</td></tr>
+        <tr><td>Moran’s I, 4 nearest neighbors</td><td class="num">0.028</td><td class="num">0.031</td></tr>
+        <tr><td>Moran’s I, 8 nearest neighbors</td><td class="num">0.024</td><td class="num">0.024</td></tr>
+        <tr><td>Moran’s I, 5,000 ft distance band</td><td class="num">0.025</td><td class="num">0.006</td></tr>
+        <tr><td>Bivariate: access × poverty rate</td><td class="num">−0.063</td><td class="num">0.001</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Negative bivariate I means higher-poverty tracts tend to sit next to lower-access tracts. This shows association, not cause.</p>
+</section>
+
+<section class="read">
+  <h2>Limitations</h2>
+  <ul>
+    <li>Only center-based programs are included; home-based family child care is not.</li>
+    <li>Quality is the inspection result only. It does not measure curriculum, staff, cost or hours.</li>
+    <li>596 programs had no inspection in 2021–23 and are treated as unknown.</li>
+    <li>The analysis counts programs, not seats; capacity is missing for about 13% of programs.</li>
+    <li>Walking access is measured from each tract’s center. Transit is not yet included.</li>
+    <li>Per-child figures are averages of tract values, so small tracts can move them.</li>
+    <li>Parent input came from informal conversations, not a formal survey.</li>
+  </ul>
+</section>
+
+<section class="read">
+  <h2>More maps</h2>
+</section>
+<section style="padding-top:0">
+  <figure>
+    <div class="map tall"><img src="maps/programs-quality.jpg" alt="Point map of 2,729 licensed childcare programs in New York City colored by inspection status." width="1600" height="1670" loading="lazy"></div>
+    <ul class="legend">
+      <li><span class="sw" style="background:#2E75B6"></span>Quality (1,805)</li>
+      <li><span class="sw" style="background:#C0392B"></span>Non-quality (328)</li>
+      <li><span class="sw" style="background:#AAAAAA"></span>Unknown (596)</li>
+    </ul>
+  </figure>
+  <figure>
+    <div class="map"><img src="maps/per-1000.jpg" alt="Two tract maps: raw count of quality programs, and quality programs per 1,000 children under 5." width="1600" height="1114" loading="lazy"></div>
+    <figcaption>Left: quality programs per tract. Right: per 1,000 children under 5.</figcaption>
+  </figure>
+  <figure>
+    <div class="map"><img src="maps/zoom-south-bronx.jpg" alt="Zoomed map of the South Bronx showing most tracts with zero or low quality programs per 1,000 children." width="1600" height="1059" loading="lazy"></div>
+    <ul class="legend">
+      <li><span class="sw" style="background:#FDECEC"></span>Zero</li>
+      <li><span class="sw" style="background:#C6DBEF"></span>Low (0–2.5)</li>
+      <li><span class="sw" style="background:#6BAED6"></span>Medium (2.5–8)</li>
+      <li><span class="sw" style="background:#2171B5"></span>High (8–20)</li>
+      <li><span class="sw" style="background:#08306B"></span>Very high (20+)</li>
+    </ul>
+    <figcaption>South Bronx (Mott Haven, Hunts Point, Melrose, Tremont), quality programs per 1,000 children.</figcaption>
+  </figure>
+</section>
+
+<section class="read">
+  <h2>Data and credits</h2>
+  <ul>
+    <li>NYC Department of Health and Mental Hygiene, child care programs (<a href="https://data.cityofnewyork.us/d/gy3q-4tzp" target="_blank" rel="noopener">gy3q-4tzp</a>) and inspections (<a href="https://data.cityofnewyork.us/d/dsg6-ifza" target="_blank" rel="noopener">dsg6-ifza</a>), NYC Open Data. Downloaded May 7, 2026.</li>
+    <li>U.S. Census Bureau, American Community Survey 2023 5-year estimates, and 2023 cartographic boundary files for census tracts.</li>
+    <li>Street network © OpenStreetMap contributors, available under the Open Database License, accessed with OSMnx.</li>
+    <li>Python: GeoPandas, OSMnx, NetworkX, PySAL (libpysal, esda), Matplotlib.</li>
+    <li>Rozhkov, A., Zandiatashbar, A., &amp; Seyrfar, A. (2025). Tackling transportation inequality through unveiling Chicago’s transit deserts and vulnerable communities. <em>Journal of Urban Planning and Development</em>, 151(3), 04025030. <a href="https://doi.org/10.1061/JUPDDM.UPENG-5499" target="_blank" rel="noopener">doi:10.1061/JUPDDM.UPENG-5499</a></li>
+    <li>Thanks to The GovLab, Brooklyn Public Library and the NYU Alliance for Public Interest Technology for the <a href="https://datastewards.net/news/open-data-and-better-questions-engaging-new-yorkers-to-develop-questions-that-matter-in-the-age-of-ai" target="_blank" rel="noopener">Questions Lab</a>, and to NYU CUSP.</li>
+  </ul>
+</section>
+
+<section class="read">
+  <h2>Contact and citation</h2>
+  <div class="box">
+    <div class="copyrow"><span class="copytext" id="email">cak10000@nyu.edu</span><button type="button" data-copy="email">Copy email</button></div>
+    <div class="copyrow"><span class="copytext" id="cite">Kukreja, C. (2026). Beyond Proximity: Measuring quality childcare access as a spatial equity problem in New York City [Lightning talk]. Harvard Center for Geographic Analysis Conference 2026.</span><button type="button" data-copy="cite">Copy citation</button></div>
+  </div>
+</section>
+
+<footer class="read">
+  Student research at NYU CUSP. Findings are preliminary and have not been peer reviewed. Views are the author’s own and do not represent NYU, the conference, or any partner organization.
+</footer>
+</div>
+
+<script>
+document.querySelectorAll('button[data-copy]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var el=document.getElementById(btn.getAttribute('data-copy'));
+    var label=btn.textContent;
+    function done(t){btn.textContent=t;setTimeout(function(){btn.textContent=label},1600)}
+    function fallback(){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);done('Selected, press Ctrl+C')}
+    try{navigator.clipboard.writeText(el.textContent).then(function(){done('Copied')},fallback)}catch(e){fallback()}
+  });
+});
+</script>
+
+</body>
+</html>
